@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Warehouse } from '../../types/Warehouse';
 
 @Component({
   selector: 'app-warehousesample',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./warehousesample.component.css']
 })
 export class WarehouseSampleComponent {
-
+warehouse:Warehouse=new Warehouse(1,"5108","E-kart","Mumbai",10000);
 }

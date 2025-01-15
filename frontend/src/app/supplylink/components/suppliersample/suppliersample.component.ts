@@ -11,5 +11,5 @@ import { of } from 'rxjs';
   styleUrls: ['./suppliersample.component.css'] 
 })
 export class SupplierSampleComponent {
-  // Component logic goes here
+supplier:Supplier=new Supplier(1,"Rajkumar","rajkumar@gmail.com","1234567890","Sirgapur","rajkumar45","Rajkumar@123","Software Engineer");
 }

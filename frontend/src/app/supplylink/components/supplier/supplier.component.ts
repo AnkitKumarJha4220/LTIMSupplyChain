@@ -1,5 +1,5 @@
 
-export class SupplierComponent  {
-
-  
+export class SupplierComponent 
+{
 }
+
