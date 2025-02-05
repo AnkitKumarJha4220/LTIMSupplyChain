@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bytenode": "^1.5.6",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "xml-js": "^1.6.11"
+  }
+}
