@@ -1,4 +1,7 @@
 package com.wecp.progressive.exception;
 
-public class NoWarehouseFoundForSupplierException {
+public class NoWarehouseFoundForSupplierException extends RuntimeException {
+    public NoWarehouseFoundForSupplierException(String message) {
+        super(message);
+    }
 }

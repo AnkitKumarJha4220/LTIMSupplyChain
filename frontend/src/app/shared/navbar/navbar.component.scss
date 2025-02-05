@@ -1,0 +1,84 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  /* Dark background */
+  color: #ecf0f1;
+  /* Light text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+}
+
+/* Navbar list */
+.navbar-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  /* Space between links */
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar links */
+.nav-link {
+  text-decoration: none;
+  color: #ecf0f1;
+  /* Light text color */
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px;
+  cursor: pointer;
+  /* Pointer cursor on links */
+}
+
+.nav-link:hover {
+  background-color: #2980b9;
+  /* Blue hover effect */
+  color: white;
+  /* White text on hover */
+}
+
+/* No hover effect on application name */
+.app-name {
+  cursor: default;
+  /* No pointer cursor for the app name */
+}
+
+.app-name:hover {
+  background-color: inherit;
+  /* No hover background color */
+  color: inherit;
+  /* No hover color change */
+}
+
+.nav-link.active {
+  background-color: #3498db;
+  /* Active link color */
+  color: white;
+}
+
+/* Logout button styles (inside <app-logout>) */
+app-logout {
+  margin-left: auto;
+}
+
+/* Media Query: Responsive for small screens */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .navbar-list {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  app-logout {
+      margin-left: 0;
+  }
+}

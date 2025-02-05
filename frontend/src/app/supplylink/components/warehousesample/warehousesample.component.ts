@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Warehouse } from '../../types/Warehouse';
 
 @Component({
   selector: 'app-warehousesample',

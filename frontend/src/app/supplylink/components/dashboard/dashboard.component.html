@@ -1,0 +1,209 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+    <ng-container *ngIf="role === 'ADMIN'">
+        <h2>Welcome ADMIN</h2>
+
+        <section class="card">
+            <h3>Supplier List</h3>
+            <div *ngIf="suppliers.length === 0" class="empty-list">
+                No suppliers available.
+            </div>
+            <table *ngIf="suppliers.length !== 0" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Supplier Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let supplier of suppliers">
+                        <td>{{ supplier.supplierId }}</td>
+                        <td>{{ supplier.supplierName }}</td>
+                        <td>{{ supplier.username }}</td>
+                        <td>{{ supplier.email }}</td>
+                        <td>{{ supplier.role }}</td>
+                        <td class="actions">
+                            <button class="btn btn-edit" (click)="editSupplier(supplier)">Edit</button>
+                            <button class="btn btn-delete" (click)="deleteSupplier(supplier)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card">
+            <h3>Warehouse List</h3>
+            <div *ngIf="warehouses.length === 0" class="empty-list">
+                No warehouses available.
+            </div>
+            <table *ngIf="warehouses.length !== 0" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Warehouse Name</th>
+                        <th>Supplier Name</th>
+                        <th>Capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let warehouse of warehouses">
+                        <td>{{ warehouse.warehouseId }}</td>
+                        <td>{{ warehouse.warehouseName }}</td>
+                        <td>{{ warehouse.supplier.supplierName }}</td>
+                        <td>{{ warehouse.capacity }}</td>
+                        <td class="actions">
+                            <button class="btn btn-edit" (click)="editWarehouse(warehouse)">Edit</button>
+                            <button class="btn btn-delete" (click)="deleteWarehouse(warehouse)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card">
+            <h3>Product List</h3>
+            <div *ngIf="products.length === 0" class="empty-list">
+                No products available.
+            </div>
+            <table *ngIf="products.length !== 0" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Warehouse Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <td>{{ product.productId }}</td>
+                        <td>{{ product.productName }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.warehouse.warehouseName }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </ng-container>
+
+    <ng-container *ngIf="role !== 'ADMIN'">
+        <section class="card">
+            <h3>Supplier Information</h3>
+            <div *ngIf="userSupplier" class="supplier-info">
+                <p><strong>Name:</strong> {{ userSupplier.supplierName }}</p>
+                <p><strong>Email:</strong> {{ userSupplier.email }}</p>
+                <p><strong>Phone:</strong> {{ userSupplier.phone }}</p>
+                <p><strong>Address:</strong> {{ userSupplier.address }}</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h3>Warehouses</h3>
+            <div *ngIf="supplierWarehouses.length === 0" class="empty-list">
+                No warehouses available.
+            </div>
+            <table *ngIf="supplierWarehouses.length !== 0" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Warehouse Name</th>
+                        <th>Supplier Name</th>
+                        <th>Location</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let warehouse of supplierWarehouses" (click)="onWarehouseSelect(warehouse)"
+                        [class.selected]="warehouse.warehouseId === selectedWarehouseId">
+                        <td>{{ warehouse.warehouseId }}</td>
+                        <td>{{ warehouse.warehouseName }}</td>
+                        <td>{{ warehouse.supplier.supplierName }}</td>
+                        <td>{{ warehouse.location }}</td>
+                        <td>{{ warehouse.capacity }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+        <section class="card">
+            <h3>Products in Selected Warehouse - {{ selectedWarehouseId }}</h3>
+            <div *ngIf="selectedWarehouseProducts.length === 0" class="empty-list">
+                No products available.
+            </div>
+            <table *ngIf="selectedWarehouseProducts.length !== 0" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Warehouse Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of selectedWarehouseProducts">
+                        <td>{{ product.productId }}</td>
+                        <td>{{ product.productName }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>Price</td>
+                        <td>{{ product.warehouse.warehouseName }}</td>
+                        <td class="actions">
+                            <button class="btn btn-edit" (click)="editProduct(product)">Edit</button>
+                            <button class="btn btn-delete" (click)="deleteProduct(product)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </ng-container>
+
+    <!-- Popup for Edit Product -->
+    <div class="popup-overlay" *ngIf="showProductPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Edit Product</h2>
+                <button class="close-btn" (click)="closeProductPopup()">&#x2715;</button> <!-- Close Icon -->
+            </div>
+
+            <form [formGroup]="productForm" (ngSubmit)="onProductFormSubmit()">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input id="productName" formControlName="productName" type="text" placeholder="Enter product name"
+                        class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <input id="productDescription" formControlName="productDescription" type="text"
+                        placeholder="Enter product description" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input id="quantity" formControlName="quantity" type="number" placeholder="Enter quantity"
+                        class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price ($)</label>
+                    <input id="price" formControlName="price" type="number" placeholder="Enter price"
+                        class="form-control" />
+                </div>
+
+                <div class="popup-actions">
+                    <button type="submit" class="btn btn-submit">Update Product</button>
+                    <button type="button" class="btn btn-cancel" (click)="closeProductPopup()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

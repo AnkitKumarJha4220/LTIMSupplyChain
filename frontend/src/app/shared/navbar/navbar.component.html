@@ -1,0 +1,17 @@
+<nav class="navbar">
+    <ul class="navbar-list">
+        <li><a routerLink="/supplylink" class="nav-link app-name">SupplyLink</a></li>
+
+        <li *ngIf="role !== 'USER'">
+            <a routerLink="/supplylink/supplier" class="nav-link">Add New Supplier</a>
+        </li>
+        <li *ngIf="role !== 'USER'">
+            <a routerLink="/supplylink/warehouse" class="nav-link">Add New Warehouse</a>
+        </li>
+        <li *ngIf="role === 'USER'">
+            <a routerLink="/supplylink/product" class="nav-link">Add New Product</a>
+        </li>
+    </ul>
+
+    <app-logout></app-logout>
+</nav>
